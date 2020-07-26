@@ -1,25 +1,22 @@
 import React, { Component } from "react";
 import loader from '../../images/loader.svg';
 import placeholder from '../../images/placeholder.jpg';
-import { render } from "react-dom";
+import MovieList from '../movie-list/movie-list.component';
+import { Link } from "react-router-dom";
 
 class HomePage extends Component {
     state = {
-        value: null,
-        searchLoaded: false,
+        value: '',
         result: null,
         error: null,
         searchError: false,
         resultFor: null
     };
-    constructor(props) {
-        super(props);
-        this.state.value = '';
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.fetchSearch = this.fetchSearch.bind(this);
-        this.handleClear = this.handleClear.bind(this);
-    }
+
+    handleChange = this.handleChange.bind(this);
+    handleSubmit = this.handleSubmit.bind(this);
+    fetchSearch = this.fetchSearch.bind(this);
+    handleClear = this.handleClear.bind(this);
 
     componentDidMount() {
 
@@ -48,11 +45,9 @@ class HomePage extends Component {
 
     handleClear(event) {
         this.setState({
-            searchLoaded: false,
             result: null,
             value: ''
         });
-        console.log(this.state);
         event.preventDefault();
     }
 
@@ -62,7 +57,6 @@ class HomePage extends Component {
             .then(
                 (result) => {
                     this.setState({
-                        searchLoaded: true,
                         result: result,
                         resultFor: this.state.value
                     });
@@ -87,18 +81,13 @@ class HomePage extends Component {
                             <button className="btn btn-primary" type="submit">Search</button>
                         </form>
                     </div>
-                    <div className="col-12">
-                        <h1 className="section-title">Popular</h1>
-                    </div>
                     {
-                        this.props.state.movieList.results.map((movie, i) => (
-                            <div className="col-sm-3 col-12" key={i}>
-                                <div className="movie-item">
-                                    <img className="movie-poster" src={this.props.state.config.images.secure_base_url + this.props.state.config.images.poster_sizes[3] + movie.poster_path} />
-                                    <h6 className="movie-title">{movie.original_title}</h6>
-                                </div>
+                        this.props.state.config ?
+                            <MovieList state={this.props.state} title="Popular" item="popular" />
+                            :
+                            <div className="text-center">
+                                <img src={loader} alt="Loader" className="loader-img" />
                             </div>
-                        ))
                     }
                 </div>
             );
@@ -120,15 +109,17 @@ class HomePage extends Component {
                     {
                         this.state.result.results.map((movie, i) => (
                             <div className="col-sm-3 col-12" key={i}>
-                                <div className="movie-item">
-                                    {
-                                        movie.poster_path ?
-                                            <img className="movie-poster" src={this.props.state.config.images.secure_base_url + this.props.state.config.images.poster_sizes[3] + movie.poster_path} />
-                                            :
-                                            <img className="movie-poster" src={placeholder} />
-                                    }
-                                    <h6 className="movie-title">{movie.original_title}</h6>
-                                </div>
+                                <Link className="no-hover" to={'/movie/' + movie.id}>
+                                    <div className="movie-item">
+                                        {
+                                            movie.poster_path ?
+                                                <img className="movie-poster" alt={movie.title} src={this.props.state.config.images.secure_base_url + this.props.state.config.images.poster_sizes[3] + movie.poster_path} />
+                                                :
+                                                <img className="movie-poster" alt={movie.title} src={placeholder} />
+                                        }
+                                        <h6 className="movie-title">{movie.title}</h6>
+                                    </div>
+                                </Link>
                             </div>
                         ))
                     }
@@ -137,7 +128,7 @@ class HomePage extends Component {
         } else {
             return (
                 <div className="text-center">
-                    <img src={loader} className="loader-img" />
+                    <img src={loader} alt="Loader" className="loader-img" />
                 </div>
             );
         }

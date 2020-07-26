@@ -23,7 +23,6 @@
     border-radius: 25px 25px 0 0;
     &:hover {
       opacity: 0.8;
-      border-width: 12px;
       box-shadow: 0px 0px 15px #000000;
       + .movie-title {
         background: #fff;
@@ -60,32 +59,39 @@
     border-radius: 20px;
     text-align: center;
     border-width: 3px;
-    &:active, &:focus {
+    &:active,
+    &:focus {
       border-color: #602e4e;
       outline: 0;
-      box-shadow: 0 0 0 0.2rem rgba(182,74,134,.25);
+      box-shadow: 0 0 0 0.2rem rgba(182, 74, 134, 0.25);
     }
   }
-  
-  .btn-primary, .btn-primary:not(:disabled):not(.disabled) {
+
+  .btn-primary,
+  .btn-primary:not(:disabled):not(.disabled) {
     color: #fff;
     background-color: #472e3e;
-    border-color: #472e3e;   
+    border-color: #472e3e;
     border-radius: 20px;
     width: 100px;
-    &:hover, &:active, &:focus {
+    &:hover,
+    &:active,
+    &:focus {
       background-color: #602e4e;
       border-color: #602e4e;
       box-shadow: none;
     }
   }
-  .btn-outline-primary, .btn-outline-primary:not(:disabled):not(.disabled) {
+  .btn-outline-primary,
+  .btn-outline-primary:not(:disabled):not(.disabled) {
     color: #644f5d;
-    border-color: #644f5d;   
+    border-color: #644f5d;
     border-radius: 20px;
     width: 100px;
     margin-right: 10px;
-    &:hover, &:active, &:focus {
+    &:hover,
+    &:active,
+    &:focus {
       color: #602e4e;
       border-color: #602e4e;
       background-color: #fff;
@@ -119,6 +125,58 @@
   pointer-events: none;
 }
 
+.no-hover {
+  &:hover {
+    text-decoration: none !important;
+  }
+}
+
+.movie-detail {
+  text-align: left;
+  .imdb-icon {
+    width: 30px;
+    margin-left: 15px;
+  }
+  .genres {
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: lightgray;
+  }
+  .tagline {
+    color: #697279;
+    font-size: 9px;
+    letter-spacing: 1px;
+    margin-bottom: 30px;
+  }
+  .detail-subtitle {
+    font-size: 15px;
+    span {
+      color: #815b69;
+    }
+  }
+  .movie-item {
+    .movie-poster {
+      border-radius: 25px;
+      border: 12px solid #472e3e;
+      &:hover {
+        opacity: 1;
+        box-shadow: none;
+      }
+    }
+  }
+  .section-title {
+    text-align: left;
+    color: #eee;
+    margin-bottom: 2px;
+    span {
+      font-size: 12px;
+      margin-left: 15px;
+      color: lightgray;
+      font-weight: 200;
+    }
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .loader-img {
     animation: loader-img-spin infinite 1s linear;
@@ -142,6 +200,14 @@
   }
   .movie-item {
     padding: 10px 50px;
+  }
+  .movie-detail {
+    .movie-item {
+      padding: 10px 20px;
+    }
+    .movie-data {
+      padding: 10px 40px;
+    }
   }
   .navbar {
     padding: 20px 10px;
