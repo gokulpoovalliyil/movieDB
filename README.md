@@ -1,4 +1,5 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# MovieDB
+A simple movie database application created while studying ReactJS. It has the option to view Popular, Latest and Top Rated movie list in addition to a search feature to search for movies by name.
 
 ## Available Scripts
 
